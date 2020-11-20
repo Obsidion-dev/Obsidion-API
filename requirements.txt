@@ -3,3 +3,4 @@ redis
 mcstatus
 requests
 Pillow
+discord.py

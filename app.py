@@ -7,6 +7,7 @@ import json
 import requests
 from imagegeneration import sign, advancement
 import datetime
+import discord
 
 
 app = flask.Flask("api")
@@ -143,6 +144,17 @@ def create_advancement():
     text = request.args['text'] if 'text' in request.args else None
     return advancement(item, title, text)
 
+@app.route('/api/v1/permissions', methods=['GET'])
+def get_permissions():
+    permission = request.args['permission'] if 'permission' in request.args else None
+    perms = discord.Permissions(int(permission))
+    response = {"permissions": []}
+
+    for perm, value in perms:
+        response["permissions"].append([perm, value])
+    return(response)
+
+
 # @app.route('/api/v1/images/splashtext', methods=['GET'])
 # def create_splashtext():
 #     text = request.args['text'] if 'text' in request.args else None
@@ -157,4 +169,4 @@ def create_advancement():
 
 
 if __name__ == '__main__':
-      app.run(host='0.0.0.0', port=5001)
+      app.run(host='0.0.0.0', port=3000)
