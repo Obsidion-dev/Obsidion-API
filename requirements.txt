@@ -4,3 +4,4 @@ mcstatus
 requests
 Pillow
 discord.py
+flask-cors

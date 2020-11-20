@@ -8,9 +8,11 @@ import requests
 from imagegeneration import sign, advancement
 import datetime
 import discord
+from flask_cors import CORS
 
 
 app = flask.Flask("api")
+CORS(app)
 
 r = redis.Redis(host='redis')
 
@@ -152,7 +154,9 @@ def get_permissions():
 
     for perm, value in perms:
         response["permissions"].append([perm, value])
-    return(response)
+    response = flask.jsonify(response)
+    response.headers.add('Access-Control-Allow-Origin', '*')
+    return response
 
 
 # @app.route('/api/v1/images/splashtext', methods=['GET'])
